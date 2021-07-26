@@ -12,7 +12,7 @@
         if (!zoomControl && !L.control.zoom) {
             zoomControl = L.control.zoom(options).addTo(getMap());
         } else if(!zoomControl) {
-            zoomControl = L.control.zoom;
+            zoomControl = L.control.zoom(options);
         }
         zoomControl.setPosition(position);
     }
