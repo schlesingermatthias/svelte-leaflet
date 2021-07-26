@@ -21,6 +21,10 @@
     let eventBridge;
 
     $: {
+        if (geojson && geojsonLayer) {
+            geojsonLayer.clearLayers();
+            geojsonLayer.addData(geojson);
+        }
         if (!geojsonLayer) {
             geojsonLayer = L.geoJSON(geojson, options).addTo(getMap());
             eventBridge = new EventBridge(geojsonLayer, dispatch, events);
