@@ -22,7 +22,7 @@
     
     $: {
         const hash = JSON.stringify(geojson);
-        if (geojson && geojsonLayer && hash !== previousHash) {
+        if (geojson && geojsonLayer && previousHash && hash !== previousHash) {
             geojsonLayer.clearLayers();
             geojsonLayer.addData(geojson);
             previousHash = hash;
