@@ -10,40 +10,49 @@
     export let url;
     export let options = {};
     export let events = [];
-
-    let geojson;
+    export let geojson = null;
+    let geojsonLayer;
 
     setContext(L.Layer, {
-        getLayer: () => geojson,
+        getLayer: () => geojsonLayer,
     });
 
     const dispatch = createEventDispatcher();
     let eventBridge;
+    let previousHash = null;
 
     $: {
-        if (!geojson) {
-            geojson = L.geoJSON(null, options).addTo(getMap());
-            eventBridge = new EventBridge(geojson, dispatch, events);
+        const hash = JSON.stringify(geojson);
+        if (geojson && geojsonLayer && hash !== previousHash) {
+            geojsonLayer.clearLayers();
+            geojsonLayer.addData(geojson);
+            previousHash = hash;
         }
-        axios.get(url)
-            .then(result => {
-                geojson.clearLayers();
-                geojson.addData(result.data);
-            });
+        if (!geojsonLayer) {
+            geojsonLayer = L.geoJSON(geojson, options).addTo(getMap());
+            eventBridge = new EventBridge(geojsonLayer, dispatch, events);
+        }
+        if(!geojson) {
+            axios.get(url)
+                .then(result => {
+                    geojsonLayer.clearLayers();
+                    geojsonLayer.addData(result.data);
+                });
+        }
     }
 
     onDestroy(() => {
         eventBridge.unregister();
-        geojson.removeFrom(getMap());
+        geojsonLayer.removeFrom(getMap());
     });
 
     export function getGeoJSON() {
-        return geojson;
+        return geojsonLayer;
     }
 </script>
 
 <div>
-    {#if geojson}
+    {#if geojsonLayer}
         <slot/>
     {/if}
 </div>
