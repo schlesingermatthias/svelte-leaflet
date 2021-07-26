@@ -12,10 +12,11 @@ import Rectangle from './components/Rectangle.svelte';
 import ScaleControl from './components/ScaleControl.svelte';
 import TileLayer from './components/TileLayer.svelte';
 import Tooltip from './components/Tooltip.svelte';
+import ZoomControl from './components/ZoomControl.svelte';
 
 import LeafletRotatedMarkersExtension from './extensions/RotatedMarkers';
 
 LeafletRotatedMarkersExtension.install();
 
-export { LeafletMap, Circle, CircleMarker, GeoJSON, Icon, Marker, Polyline, Polygon, Popup, Rectangle, ScaleControl, TileLayer, Tooltip };
+export { LeafletMap, Circle, CircleMarker, GeoJSON, Icon, Marker, Polyline, Polygon, Popup, Rectangle, ScaleControl, TileLayer, Tooltip, ZoomControl};
 export default LeafletMap;
