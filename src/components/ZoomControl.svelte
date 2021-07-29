@@ -8,11 +8,12 @@
     export let options = {};
     
     let zoomControl;
+    const optionsWithPosition = {...options, position: position};
     $: {
-        if (!zoomControl && !L.control.zoom) {
-            zoomControl = L.control.zoom(options).addTo(getMap());
+        if (!zoomControl && L.control.zoom) {
+            zoomControl = L.control.zoom(optionsWithPosition).addTo(getMap());
         } else if(!zoomControl) {
-            zoomControl = L.control.zoom(options);
+            zoomControl = L.control.zoom(optionsWithPosition);
         }
         zoomControl.setPosition(position);
     }
