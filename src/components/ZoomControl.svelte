@@ -11,7 +11,7 @@
     const optionsWithPosition = {...options, position: position};
     $: {
         if (!zoomControl) {
-           zoomControl = L.control.zoom({ position }).addTo(map);
+           zoomControl = L.control.zoom({ position }).addTo(getMap());
         }
     }
     onDestroy(() => {
