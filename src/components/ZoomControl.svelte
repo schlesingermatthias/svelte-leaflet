@@ -10,12 +10,9 @@
     let zoomControl;
     const optionsWithPosition = {...options, position: position};
     $: {
-        if (!zoomControl && L.control.zoom) {
-            zoomControl = L.control.zoom(optionsWithPosition).addTo(getMap());
-        } else if(!zoomControl) {
-            zoomControl = L.control.zoom(optionsWithPosition);
+        if (!zoomControl) {
+           zoomControl = L.control.zoom({ position }).addTo(map);
         }
-        zoomControl.setPosition(position);
     }
     onDestroy(() => {
         zoomControl.removeFrom(getMap());
