@@ -23,7 +23,7 @@
     $: {
         const hash = JSON.stringify(geojson);
         if (geojson && geojsonLayer && hash !== previousHash) {
-            geojsonLayer.clearLayers();
+            geojsonLayer.removeLayer(geojsonLayer);
             geojsonLayer.addData(geojson);
             previousHash = hash;
         }
@@ -34,7 +34,7 @@
         if(!geojson) {
             axios.get(url)
                 .then(result => {
-                    geojsonLayer.clearLayers();
+                    geojsonLayer.removeLayer(geojsonLayer);
                     geojsonLayer.addData(result.data);
                 });
         }
