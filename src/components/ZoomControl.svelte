@@ -15,7 +15,7 @@
         }
     }
     onDestroy(() => {
-        zoomControl.removeFrom(getMap());
+        zoomControl.remove();
     });
     export function getZoomControl() {
         return zoomControl;
